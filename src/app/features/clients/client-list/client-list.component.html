@@ -1,0 +1,71 @@
+<div class="max-w-6xl mx-auto">
+
+  <!-- En-tête -->
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Gestion des clients</h1>
+    <a
+      routerLink="/clients/nouveau"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
+    >
+      + Nouveau client
+    </a>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="mb-4">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="onSearch()"
+      placeholder="Rechercher un client (nom, email...)"
+      class="w-full max-w-md border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Erreur -->
+  @if (errorMessage()) {
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <!-- Chargement -->
+  @if (isLoading()) {
+    <p class="text-gray-500">Chargement...</p>
+  } @else {
+
+    <!-- Tableau -->
+    <div class="bg-white rounded-xl shadow overflow-hidden">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
+          <tr>
+            <th class="px-4 py-3">Nom</th>
+            <th class="px-4 py-3">Email</th>
+            <th class="px-4 py-3">Téléphone</th>
+            <th class="px-4 py-3">Date création</th>
+            <th class="px-4 py-3 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (client of clients(); track client.id) {
+            <tr class="border-t border-gray-100 hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{{ client.prenom }} {{ client.nom }}</td>
+              <td class="px-4 py-3 text-gray-600">{{ client.email }}</td>
+              <td class="px-4 py-3 text-gray-600">{{ client.telephone }}</td>
+              <td class="px-4 py-3 text-gray-600">{{ client.dateCreation }}</td>
+              <td class="px-4 py-3 text-right space-x-3">
+                <a [routerLink]="['/clients', client.id]" class="text-blue-600 hover:underline">Voir</a>
+                <button (click)="onDelete(client.id)" class="text-red-600 hover:underline">Supprimer</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="px-4 py-6 text-center text-gray-400">Aucun client trouvé.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+</div>
