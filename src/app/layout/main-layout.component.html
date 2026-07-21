@@ -1,0 +1,51 @@
+<div class="min-h-screen flex bg-gray-100">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-blue-800 text-white flex flex-col">
+    <div class="p-5 border-b border-blue-700">
+      <h1 class="text-lg font-bold">MicroBank Connect</h1>
+    </div>
+
+    <nav class="flex-1 p-3 space-y-1">
+      @for (item of navItems(); track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-blue-900"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+        >
+          <span>{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <!-- Contenu principal -->
+  <div class="flex-1 flex flex-col">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Connecté en tant que</p>
+        <p class="font-semibold text-gray-800">
+          {{ authService.currentUser()?.prenom }} {{ authService.currentUser()?.nom }}
+          <span class="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full uppercase">
+            {{ authService.userRole() }}
+          </span>
+        </p>
+      </div>
+      <button
+        (click)="authService.logout()"
+        class="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+      >
+        Se déconnecter
+      </button>
+    </header>
+
+    <!-- Page active -->
+    <main class="flex-1 p-6">
+      <router-outlet />
+    </main>
+
+  </div>
+</div>
