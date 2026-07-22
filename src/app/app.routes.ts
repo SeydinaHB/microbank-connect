@@ -70,6 +70,12 @@ export const routes: Routes = [
           import('./features/credits/credit-simulation/credit-simulation.component').then(m => m.CreditSimulationComponent)
       },
       {
+  path: 'rapports',
+  canActivate: [roleGuard(['gestionnaire'])],
+  loadComponent: () =>
+    import('./features/rapports/rapports.component').then(m => m.RapportsComponent)
+},
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'

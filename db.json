@@ -290,7 +290,7 @@
       "dureeMois": 12,
       "mensualite": 85837,
       "dateDemande": "2026-07-22",
-      "statut": "en_attente",
+      "statut": "refuse",
       "echeancier": [
         {
           "numero": 1,
