@@ -38,6 +38,11 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/comptes/compte-list/compte-list.component').then(m => m.CompteListComponent)
 },
+{
+  path: 'comptes/nouveau',
+  loadComponent: () =>
+    import('./features/comptes/compte-form/compte-form.component').then(m => m.CompteFormComponent)
+},
       {
         path: '',
         pathMatch: 'full',

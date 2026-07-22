@@ -91,6 +91,16 @@
       "devise": "XOF",
       "dateOuverture": "2025-02-20",
       "statut": "actif"
+    },
+    {
+      "numeroCompte": "MB-9332",
+      "clientId": 2,
+      "type": "epargne",
+      "solde": 100000,
+      "devise": "XOF",
+      "dateOuverture": "2026-07-22",
+      "statut": "actif",
+      "id": 4
     }
   ],
   "transactions": [
