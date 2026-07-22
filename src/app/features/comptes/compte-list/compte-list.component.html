@@ -49,9 +49,9 @@
             {{ compte.solde | number:'1.0-0':'fr' }} <span class="text-sm font-normal">{{ compte.devise }}</span>
           </p>
 
-          <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-sm">
-            <span class="text-gray-500">{{ getClientName(compte.clientId) }}</span>
-            <a [routerLink]="['/clients', compte.clientId]" class="text-blue-600 hover:underline">Voir client</a>
+         <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-sm">
+            <a [routerLink]="['/comptes', compte.id]" class="text-blue-600 hover:underline font-medium">Voir détails</a>
+            <a [routerLink]="['/clients', compte.clientId]" class="text-gray-500 hover:underline">{{ getClientName(compte.clientId) }}</a>
           </div>
         </div>
       } @empty {

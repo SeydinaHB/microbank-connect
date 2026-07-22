@@ -1,0 +1,65 @@
+<div class="max-w-3xl mx-auto">
+
+  <a routerLink="/comptes" class="text-blue-600 hover:underline text-sm mb-4 inline-block">
+    ← Retour aux comptes
+  </a>
+
+  @if (isLoading()) {
+    <p class="text-gray-500">Chargement...</p>
+  } @else if (errorMessage()) {
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+      {{ errorMessage() }}
+    </div>
+  } @else if (compte(); as c) {
+
+    <!-- Carte solde -->
+    <div class="bg-blue-800 text-white rounded-xl shadow p-6 mb-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs uppercase font-semibold bg-blue-700 px-2 py-1 rounded-full">{{ c.type }}</span>
+        <span class="text-xs uppercase text-blue-200">{{ c.statut }}</span>
+      </div>
+      <p class="text-blue-200 text-sm mt-4">{{ c.numeroCompte }}</p>
+      <p class="text-3xl font-bold mt-1">{{ c.solde | number:'1.0-0':'fr' }} {{ c.devise }}</p>
+
+      @if (client(); as cl) {
+        <div class="mt-4 pt-4 border-t border-blue-700 flex items-center justify-between text-sm">
+          <span class="text-blue-200">Titulaire</span>
+          <a [routerLink]="['/clients', cl.id]" class="hover:underline font-medium">{{ cl.prenom }} {{ cl.nom }}</a>
+        </div>
+      }
+    </div>
+
+    <!-- Historique des transactions -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Historique des transactions</h2>
+
+      @if (transactions().length === 0) {
+        <p class="text-gray-400 text-sm">Aucune transaction pour ce compte.</p>
+      } @else {
+        <div class="space-y-2">
+          @for (transaction of transactions(); track transaction.id) {
+            <div class="flex items-center justify-between border-b border-gray-50 py-3 last:border-0">
+              <div>
+                <p class="text-sm font-medium text-gray-800 capitalize">
+                  {{ transaction.type }}
+                  @if (transaction.libelle) {
+                    <span class="text-gray-400 font-normal">— {{ transaction.libelle }}</span>
+                  }
+                </p>
+                <p class="text-xs text-gray-400">{{ transaction.date }}</p>
+              </div>
+              <p
+                class="font-semibold"
+                [ngClass]="getMontantSigne(transaction) >= 0 ? 'text-green-600' : 'text-red-600'"
+              >
+                {{ getMontantSigne(transaction) >= 0 ? '+' : '' }}{{ getMontantSigne(transaction) | number:'1.0-0':'fr' }} {{ c.devise }}
+              </p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  }
+
+</div>

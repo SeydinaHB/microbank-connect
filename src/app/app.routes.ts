@@ -49,6 +49,11 @@ export const routes: Routes = [
           import('./features/comptes/compte-form/compte-form.component').then(m => m.CompteFormComponent)
       },
       {
+  path: 'comptes/:id',
+  loadComponent: () =>
+    import('./features/comptes/compte-detail/compte-detail.component').then(m => m.CompteDetailComponent)
+},
+      {
         path: 'operations',
         canActivate: [roleGuard(['agent', 'gestionnaire'])],
         loadComponent: () =>
