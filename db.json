@@ -87,7 +87,7 @@
       "numeroCompte": "MB-0003",
       "clientId": 2,
       "type": "courant",
-      "solde": 75000,
+      "solde": 15000,
       "devise": "XOF",
       "dateOuverture": "2025-02-20",
       "statut": "actif"
@@ -140,6 +140,14 @@
       "date": "2026-07-22",
       "statut": "reussie",
       "libelle": "Depot fait a Mme Fatou FALL"
+    },
+    {
+      "compteId": 3,
+      "type": "retrait",
+      "montant": 60000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "id": 5
     }
   ],
   "credits": [

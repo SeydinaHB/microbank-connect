@@ -1,0 +1,46 @@
+<div class="relative">
+
+  <!-- Bouton cloche -->
+  <button
+    (click)="toggle()"
+    class="relative p-2 rounded-lg hover:bg-gray-100 transition"
+  >
+    <span class="text-xl">🔔</span>
+    @if (notifications().length > 0) {
+      <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+        {{ notifications().length }}
+      </span>
+    }
+  </button>
+
+  <!-- Menu déroulant -->
+  @if (isOpen()) {
+    <div class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-100 z-50 max-h-96 overflow-y-auto">
+      <div class="p-3 border-b border-gray-100 flex items-center justify-between">
+        <p class="font-semibold text-gray-800 text-sm">Notifications</p>
+        <button (click)="close()" class="text-gray-400 hover:text-gray-600 text-sm">✕</button>
+      </div>
+
+      @if (notifications().length === 0) {
+        <p class="text-gray-400 text-sm text-center py-6">Aucune notification.</p>
+      } @else {
+        <div class="divide-y divide-gray-50">
+          @for (notif of notifications(); track notif.id) {
+            <div class="p-3 flex items-start gap-2">
+              <span
+                class="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
+                [ngClass]="{
+                  'bg-yellow-400': notif.niveau === 'warning',
+                  'bg-red-500': notif.niveau === 'danger',
+                  'bg-blue-400': notif.niveau === 'info'
+                }"
+              ></span>
+              <p class="text-sm text-gray-700">{{ notif.message }}</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+</div>

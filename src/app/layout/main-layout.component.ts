@@ -1,7 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
-
+import { NotificationBellComponent } from '../shared/components/notification-bell/notification-bell.component';
 interface NavItem {
   label: string;
   path: string;
@@ -11,7 +11,7 @@ interface NavItem {
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent],
   templateUrl: './main-layout.component.html'
 })
 export class MainLayoutComponent {
