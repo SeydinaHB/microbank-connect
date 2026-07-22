@@ -26,8 +26,8 @@ export class CompteService {
   }
 
   update(id: number, compte: Partial<Compte>): Observable<Compte> {
-    return this.http.put<Compte>(`${API_URL}/comptes/${id}`, compte);
-  }
+  return this.http.patch<Compte>(`${API_URL}/comptes/${id}`, compte);
+}
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${API_URL}/comptes/${id}`);

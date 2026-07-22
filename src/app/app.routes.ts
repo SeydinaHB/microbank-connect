@@ -43,6 +43,11 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/comptes/compte-form/compte-form.component').then(m => m.CompteFormComponent)
 },
+{
+  path: 'operations',
+  loadComponent: () =>
+    import('./features/operations/operation-form/operation-form.component').then(m => m.OperationFormComponent)
+},
       {
         path: '',
         pathMatch: 'full',

@@ -67,7 +67,7 @@
       "numeroCompte": "MB-0001",
       "clientId": 1,
       "type": "courant",
-      "solde": 150000,
+      "solde": 180000,
       "devise": "XOF",
       "dateOuverture": "2025-01-10",
       "statut": "actif"
@@ -131,6 +131,53 @@
       "date": "2026-07-10",
       "statut": "reussie",
       "libelle": "Virement épargne"
+    },
+    {
+      "compteId": 1,
+      "type": "depot",
+      "montant": 50000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "libelle": "Depot fait a Mme Fatou FALL",
+      "id": 4
+    },
+    {
+      "compteId": 2,
+      "type": "retrait",
+      "montant": 20000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "libelle": "Retrait",
+      "id": 5
+    },
+    {
+      "compteId": 1,
+      "compteDestinataireId": 2,
+      "type": "virement",
+      "montant": 10000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "libelle": "Virement",
+      "id": 6
+    },
+    {
+      "compteId": 1,
+      "compteDestinataireId": 2,
+      "type": "virement",
+      "montant": 10000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "libelle": "Virement",
+      "id": 7
+    },
+    {
+      "compteId": 1,
+      "compteDestinataireId": 2,
+      "type": "virement",
+      "montant": 10000,
+      "date": "2026-07-22",
+      "statut": "reussie",
+      "id": 8
     }
   ],
   "credits": [
