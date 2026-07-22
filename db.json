@@ -1,28 +1,151 @@
 {
   "users": [
-    { "id": 1, "nom": "Diop", "prenom": "Awa", "email": "awa.diop@microbank.sn", "role": "gestionnaire", "password": "password123" },
-    { "id": 2, "nom": "Ndiaye", "prenom": "Moussa", "email": "moussa.ndiaye@microbank.sn", "role": "agent", "password": "password123" },
-    { "id": 3, "nom": "Fall", "prenom": "Fatou", "email": "fatou.fall@client.sn", "role": "client", "clientId": 1, "password": "password123" }
+    {
+      "id": 1,
+      "nom": "Diop",
+      "prenom": "Awa",
+      "email": "awa.diop@microbank.sn",
+      "role": "gestionnaire",
+      "password": "password123"
+    },
+    {
+      "id": 2,
+      "nom": "Ndiaye",
+      "prenom": "Moussa",
+      "email": "moussa.ndiaye@microbank.sn",
+      "role": "agent",
+      "password": "password123"
+    },
+    {
+      "id": 3,
+      "nom": "Fall",
+      "prenom": "Fatou",
+      "email": "fatou.fall@client.sn",
+      "role": "client",
+      "clientId": 1,
+      "password": "password123"
+    }
   ],
   "clients": [
-    { "id": 1, "nom": "Fall", "prenom": "Fatou", "email": "fatou.fall@client.sn", "telephone": "771234567", "adresse": "Parcelles Assainies, Dakar", "dateNaissance": "1990-05-12", "numeroCni": "1234567890123", "dateCreation": "2025-01-10" },
-    { "id": 2, "nom": "Sarr", "prenom": "Ibrahima", "email": "ibrahima.sarr@client.sn", "telephone": "775551234", "adresse": "Keur Massar, Dakar", "dateNaissance": "1985-11-03", "numeroCni": "9876543210987", "dateCreation": "2025-02-20" }
+    {
+      "id": 1,
+      "nom": "Fall",
+      "prenom": "Fatou",
+      "email": "fatou.fall@client.sn",
+      "telephone": "771234567",
+      "adresse": "Parcelles Assainies, Dakar",
+      "dateNaissance": "1990-05-12",
+      "numeroCni": "1234567890123",
+      "dateCreation": "2025-01-10"
+    },
+    {
+      "id": 2,
+      "nom": "Sarr",
+      "prenom": "Ibrahima",
+      "email": "ibrahima.sarr@client.sn",
+      "telephone": "775551234",
+      "adresse": "Keur Massar, Dakar",
+      "dateNaissance": "1985-11-03",
+      "numeroCni": "9876543210987",
+      "dateCreation": "2025-02-20"
+    },
+    {
+      "nom": "Ndiaye",
+      "prenom": "Woulimata",
+      "email": "woulimata@gmail.com",
+      "telephone": "771234567",
+      "adresse": "HLM",
+      "dateNaissance": "2007-11-01",
+      "numeroCni": "1122334455",
+      "dateCreation": "2026-07-22",
+      "id": 3
+    }
   ],
   "comptes": [
-    { "id": 1, "numeroCompte": "MB-0001", "clientId": 1, "type": "courant", "solde": 150000, "devise": "XOF", "dateOuverture": "2025-01-10", "statut": "actif" },
-    { "id": 2, "numeroCompte": "MB-0002", "clientId": 1, "type": "epargne", "solde": 500000, "devise": "XOF", "dateOuverture": "2025-01-15", "statut": "actif" },
-    { "id": 3, "numeroCompte": "MB-0003", "clientId": 2, "type": "courant", "solde": 75000, "devise": "XOF", "dateOuverture": "2025-02-20", "statut": "actif" }
+    {
+      "id": 1,
+      "numeroCompte": "MB-0001",
+      "clientId": 1,
+      "type": "courant",
+      "solde": 150000,
+      "devise": "XOF",
+      "dateOuverture": "2025-01-10",
+      "statut": "actif"
+    },
+    {
+      "id": 2,
+      "numeroCompte": "MB-0002",
+      "clientId": 1,
+      "type": "epargne",
+      "solde": 500000,
+      "devise": "XOF",
+      "dateOuverture": "2025-01-15",
+      "statut": "actif"
+    },
+    {
+      "id": 3,
+      "numeroCompte": "MB-0003",
+      "clientId": 2,
+      "type": "courant",
+      "solde": 75000,
+      "devise": "XOF",
+      "dateOuverture": "2025-02-20",
+      "statut": "actif"
+    }
   ],
   "transactions": [
-    { "id": 1, "compteId": 1, "type": "depot", "montant": 50000, "date": "2026-07-01", "statut": "reussie", "libelle": "Dépôt salaire" },
-    { "id": 2, "compteId": 1, "type": "retrait", "montant": 20000, "date": "2026-07-05", "statut": "reussie", "libelle": "Retrait guichet" },
-    { "id": 3, "compteId": 1, "compteDestinataireId": 2, "type": "virement", "montant": 30000, "date": "2026-07-10", "statut": "reussie", "libelle": "Virement épargne" }
+    {
+      "id": 1,
+      "compteId": 1,
+      "type": "depot",
+      "montant": 50000,
+      "date": "2026-07-01",
+      "statut": "reussie",
+      "libelle": "Dépôt salaire"
+    },
+    {
+      "id": 2,
+      "compteId": 1,
+      "type": "retrait",
+      "montant": 20000,
+      "date": "2026-07-05",
+      "statut": "reussie",
+      "libelle": "Retrait guichet"
+    },
+    {
+      "id": 3,
+      "compteId": 1,
+      "compteDestinataireId": 2,
+      "type": "virement",
+      "montant": 30000,
+      "date": "2026-07-10",
+      "statut": "reussie",
+      "libelle": "Virement épargne"
+    }
   ],
   "credits": [
-    { "id": 1, "clientId": 1, "montant": 1000000, "tauxInteret": 5.5, "dureeMois": 12, "mensualite": 86000, "dateDemande": "2026-06-01", "statut": "approuve",
+    {
+      "id": 1,
+      "clientId": 1,
+      "montant": 1000000,
+      "tauxInteret": 5.5,
+      "dureeMois": 12,
+      "mensualite": 86000,
+      "dateDemande": "2026-06-01",
+      "statut": "approuve",
       "echeancier": [
-        { "numero": 1, "dateEcheance": "2026-07-01", "montant": 86000, "payee": true },
-        { "numero": 2, "dateEcheance": "2026-08-01", "montant": 86000, "payee": false }
+        {
+          "numero": 1,
+          "dateEcheance": "2026-07-01",
+          "montant": 86000,
+          "payee": true
+        },
+        {
+          "numero": 2,
+          "dateEcheance": "2026-08-01",
+          "montant": 86000,
+          "payee": false
+        }
       ]
     }
   ]

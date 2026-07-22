@@ -1,0 +1,131 @@
+<div class="max-w-2xl mx-auto">
+
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Nouveau client</h1>
+
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="bg-white rounded-xl shadow p-6 space-y-5">
+
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Nom -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+        <input
+          type="text"
+          formControlName="nom"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (clientForm.get('nom')?.invalid && clientForm.get('nom')?.touched) {
+          <p class="text-red-600 text-xs mt-1">Le nom est requis (2 caractères min).</p>
+        }
+      </div>
+
+      <!-- Prénom -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+        <input
+          type="text"
+          formControlName="prenom"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (clientForm.get('prenom')?.invalid && clientForm.get('prenom')?.touched) {
+          <p class="text-red-600 text-xs mt-1">Le prénom est requis (2 caractères min).</p>
+        }
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (clientForm.get('email')?.invalid && clientForm.get('email')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Email invalide.</p>
+      }
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Téléphone -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+        <input
+          type="text"
+          formControlName="telephone"
+          placeholder="771234567"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (clientForm.get('telephone')?.invalid && clientForm.get('telephone')?.touched) {
+          <p class="text-red-600 text-xs mt-1">Format attendu : 771234567 (9 chiffres, commence par 7).</p>
+        }
+      </div>
+
+      <!-- Date de naissance -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
+        <input
+          type="date"
+          formControlName="dateNaissance"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (clientForm.get('dateNaissance')?.invalid && clientForm.get('dateNaissance')?.touched) {
+          <p class="text-red-600 text-xs mt-1">La date de naissance est requise.</p>
+        }
+      </div>
+    </div>
+
+    <!-- Adresse -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+      <input
+        type="text"
+        formControlName="adresse"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (clientForm.get('adresse')?.invalid && clientForm.get('adresse')?.touched) {
+        <p class="text-red-600 text-xs mt-1">L'adresse est requise.</p>
+      }
+    </div>
+
+    <!-- Numéro CNI -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Numéro CNI</label>
+      <input
+        type="text"
+        formControlName="numeroCni"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (clientForm.get('numeroCni')?.invalid && clientForm.get('numeroCni')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Numéro CNI invalide (10 caractères min).</p>
+      }
+    </div>
+
+    <!-- Erreur serveur -->
+    @if (errorMessage()) {
+      <p class="text-red-600 text-sm text-center">{{ errorMessage() }}</p>
+    }
+
+    <!-- Boutons -->
+    <div class="flex justify-end gap-3 pt-2">
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition"
+      >
+        Annuler
+      </button>
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
+      >
+        @if (isLoading()) {
+          Création en cours...
+        } @else {
+          Créer le client
+        }
+      </button>
+    </div>
+
+  </form>
+</div>
