@@ -3,12 +3,14 @@
   <!-- En-tête -->
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-bold text-gray-800">Comptes bancaires</h1>
+    @if (canCreateCompte) {
       <a
-      routerLink="/comptes/nouveau"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
-    >
-      + Ouvrir un compte
-    </a>
+        routerLink="/comptes/nouveau"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
+      >
+        + Ouvrir un compte
+      </a>
+    }
   </div>
 
   <!-- Erreur -->

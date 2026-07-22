@@ -274,6 +274,90 @@
         }
       ],
       "id": 3
+    },
+    {
+      "clientId": 1,
+      "montant": 1000000,
+      "tauxInteret": 5.5,
+      "dureeMois": 12,
+      "mensualite": 85837,
+      "dateDemande": "2026-07-22",
+      "statut": "en_attente",
+      "echeancier": [
+        {
+          "numero": 1,
+          "dateEcheance": "2026-08-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 2,
+          "dateEcheance": "2026-09-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 3,
+          "dateEcheance": "2026-10-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 4,
+          "dateEcheance": "2026-11-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 5,
+          "dateEcheance": "2026-12-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 6,
+          "dateEcheance": "2027-01-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 7,
+          "dateEcheance": "2027-02-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 8,
+          "dateEcheance": "2027-03-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 9,
+          "dateEcheance": "2027-04-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 10,
+          "dateEcheance": "2027-05-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 11,
+          "dateEcheance": "2027-06-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 12,
+          "dateEcheance": "2027-07-22",
+          "montant": 85837,
+          "payee": false
+        }
+      ],
+      "id": 4
     }
   ]
 }

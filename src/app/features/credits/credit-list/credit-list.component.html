@@ -73,8 +73,8 @@
             </div>
           </details>
 
-          <!-- Actions pour crédit en attente -->
-          @if (credit.statut === 'en_attente') {
+         <!-- Actions pour crédit en attente (agent/gestionnaire uniquement) -->
+          @if (credit.statut === 'en_attente' && canManageCredits) {
             <div class="flex gap-3 mt-4 pt-4 border-t border-gray-100">
               <button
                 (click)="approuver(credit)"

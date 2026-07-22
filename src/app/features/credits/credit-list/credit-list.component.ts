@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { CreditService } from '../../../core/services/credit.service';
 import { ClientService } from '../../../core/services/client.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Credit } from '../../../core/models/credit.model';
 import { Client } from '../../../core/models/client.model';
 
@@ -15,16 +16,30 @@ import { Client } from '../../../core/models/client.model';
 export class CreditListComponent implements OnInit {
   private creditService = inject(CreditService);
   private clientService = inject(ClientService);
+  private authService = inject(AuthService);
 
   credits = signal<Credit[]>([]);
   clients = signal<Client[]>([]);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
+  // Un client ne peut ni approuver ni refuser ses propres crédits (seul agent/gestionnaire le peut)
+  canManageCredits = this.authService.userRole() !== 'client';
+
   ngOnInit(): void {
+    this.isLoading.set(true);
+
     this.creditService.getAll().subscribe({
       next: (credits) => {
-        this.credits.set(credits);
+        const role = this.authService.userRole();
+        const currentUser = this.authService.currentUser();
+
+        if (role === 'client' && currentUser?.clientId) {
+          this.credits.set(credits.filter((c) => c.clientId === currentUser.clientId));
+        } else {
+          this.credits.set(credits);
+        }
+
         this.loadClients();
       },
       error: () => {

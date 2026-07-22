@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { CompteService } from '../../../core/services/compte.service';
 import { ClientService } from '../../../core/services/client.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Compte } from '../../../core/models/compte.model';
 import { Client } from '../../../core/models/client.model';
 
@@ -15,19 +16,32 @@ import { Client } from '../../../core/models/client.model';
 export class CompteListComponent implements OnInit {
   private compteService = inject(CompteService);
   private clientService = inject(ClientService);
+  private authService = inject(AuthService);
 
   comptes = signal<Compte[]>([]);
   clients = signal<Client[]>([]);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
+  // Le client connecté ne doit pas pouvoir créer de compte lui-même (seul un agent/gestionnaire le peut)
+  canCreateCompte = this.authService.userRole() !== 'client';
+
   ngOnInit(): void {
     this.isLoading.set(true);
 
-    // On charge comptes ET clients en parallèle, pour afficher le nom du client sur chaque compte
     this.compteService.getAll().subscribe({
       next: (comptes) => {
-        this.comptes.set(comptes);
+        const role = this.authService.userRole();
+        const currentUser = this.authService.currentUser();
+
+        if (role === 'client' && currentUser?.clientId) {
+          // Un client ne voit que ses propres comptes
+          this.comptes.set(comptes.filter((c) => c.clientId === currentUser.clientId));
+        } else {
+          // Agent / Gestionnaire voient tous les comptes
+          this.comptes.set(comptes);
+        }
+
         this.loadClients();
       },
       error: () => {
@@ -49,7 +63,6 @@ export class CompteListComponent implements OnInit {
     });
   }
 
-  // Utilisé dans le template pour afficher le nom du client à partir de son ID
   getClientName(clientId: number): string {
     const client = this.clients().find((c) => c.id === clientId);
     return client ? `${client.prenom} ${client.nom}` : 'Client inconnu';
