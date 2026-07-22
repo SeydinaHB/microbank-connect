@@ -28,6 +28,11 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/clients/client-form/client-form.component').then(m => m.ClientFormComponent)
 },
+{
+  path: 'clients/:id',
+  loadComponent: () =>
+    import('./features/clients/client-detail/client-detail.component').then(m => m.ClientDetailComponent)
+},
       {
         path: '',
         pathMatch: 'full',

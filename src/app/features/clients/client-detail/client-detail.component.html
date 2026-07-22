@@ -1,0 +1,72 @@
+<div class="max-w-3xl mx-auto">
+
+  <a routerLink="/clients" class="text-blue-600 hover:underline text-sm mb-4 inline-block">
+    ← Retour à la liste
+  </a>
+
+  @if (isLoading()) {
+    <p class="text-gray-500">Chargement...</p>
+  } @else if (errorMessage()) {
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+      {{ errorMessage() }}
+    </div>
+  } @else if (client(); as c) {
+
+    <!-- Carte infos client -->
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+      <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ c.prenom }} {{ c.nom }}</h1>
+
+      <div class="grid grid-cols-2 gap-4 text-sm">
+        <div>
+          <p class="text-gray-500">Email</p>
+          <p class="text-gray-800 font-medium">{{ c.email }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">Téléphone</p>
+          <p class="text-gray-800 font-medium">{{ c.telephone }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">Adresse</p>
+          <p class="text-gray-800 font-medium">{{ c.adresse }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">Date de naissance</p>
+          <p class="text-gray-800 font-medium">{{ c.dateNaissance }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">Numéro CNI</p>
+          <p class="text-gray-800 font-medium">{{ c.numeroCni }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">Client depuis le</p>
+          <p class="text-gray-800 font-medium">{{ c.dateCreation }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comptes liés -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Comptes bancaires</h2>
+
+      @if (comptes().length === 0) {
+        <p class="text-gray-400 text-sm">Aucun compte pour ce client.</p>
+      } @else {
+        <div class="space-y-3">
+          @for (compte of comptes(); track compte.id) {
+            <div class="flex items-center justify-between border border-gray-100 rounded-lg px-4 py-3">
+              <div>
+                <p class="font-medium text-gray-800">{{ compte.numeroCompte }}</p>
+                <p class="text-xs text-gray-500 uppercase">{{ compte.type }}</p>
+              </div>
+              <p class="font-semibold text-blue-700">
+                {{ compte.solde | number:'1.0-0':'fr' }} {{ compte.devise }}
+              </p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  }
+
+</div>
