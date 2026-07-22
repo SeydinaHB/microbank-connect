@@ -33,6 +33,11 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/clients/client-detail/client-detail.component').then(m => m.ClientDetailComponent)
 },
+{
+  path: 'comptes',
+  loadComponent: () =>
+    import('./features/comptes/compte-list/compte-list.component').then(m => m.CompteListComponent)
+},
       {
         path: '',
         pathMatch: 'full',
