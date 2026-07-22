@@ -48,6 +48,16 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./features/operations/operation-form/operation-form.component').then(m => m.OperationFormComponent)
 },
+{
+  path: 'credits',
+  loadComponent: () =>
+    import('./features/credits/credit-list/credit-list.component').then(m => m.CreditListComponent)
+},
+{
+  path: 'credits/nouveau',
+  loadComponent: () =>
+    import('./features/credits/credit-simulation/credit-simulation.component').then(m => m.CreditSimulationComponent)
+},
       {
         path: '',
         pathMatch: 'full',

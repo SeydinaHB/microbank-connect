@@ -50,6 +50,7 @@
       "dateCreation": "2025-02-20"
     },
     {
+      "id": 3,
       "nom": "Ndiaye",
       "prenom": "Woulimata",
       "email": "woulimata@gmail.com",
@@ -57,8 +58,7 @@
       "adresse": "HLM",
       "dateNaissance": "2007-11-01",
       "numeroCni": "1122334455",
-      "dateCreation": "2026-07-22",
-      "id": 3
+      "dateCreation": "2026-07-22"
     }
   ],
   "comptes": [
@@ -67,7 +67,7 @@
       "numeroCompte": "MB-0001",
       "clientId": 1,
       "type": "courant",
-      "solde": 180000,
+      "solde": 200000,
       "devise": "XOF",
       "dateOuverture": "2025-01-10",
       "statut": "actif"
@@ -93,14 +93,14 @@
       "statut": "actif"
     },
     {
+      "id": 4,
       "numeroCompte": "MB-9332",
       "clientId": 2,
       "type": "epargne",
       "solde": 100000,
       "devise": "XOF",
       "dateOuverture": "2026-07-22",
-      "statut": "actif",
-      "id": 4
+      "statut": "actif"
     }
   ],
   "transactions": [
@@ -111,7 +111,7 @@
       "montant": 50000,
       "date": "2026-07-01",
       "statut": "reussie",
-      "libelle": "Dépôt salaire"
+      "libelle": "Depot salaire"
     },
     {
       "id": 2,
@@ -130,54 +130,16 @@
       "montant": 30000,
       "date": "2026-07-10",
       "statut": "reussie",
-      "libelle": "Virement épargne"
+      "libelle": "Virement epargne"
     },
     {
+      "id": 4,
       "compteId": 1,
       "type": "depot",
       "montant": 50000,
       "date": "2026-07-22",
       "statut": "reussie",
-      "libelle": "Depot fait a Mme Fatou FALL",
-      "id": 4
-    },
-    {
-      "compteId": 2,
-      "type": "retrait",
-      "montant": 20000,
-      "date": "2026-07-22",
-      "statut": "reussie",
-      "libelle": "Retrait",
-      "id": 5
-    },
-    {
-      "compteId": 1,
-      "compteDestinataireId": 2,
-      "type": "virement",
-      "montant": 10000,
-      "date": "2026-07-22",
-      "statut": "reussie",
-      "libelle": "Virement",
-      "id": 6
-    },
-    {
-      "compteId": 1,
-      "compteDestinataireId": 2,
-      "type": "virement",
-      "montant": 10000,
-      "date": "2026-07-22",
-      "statut": "reussie",
-      "libelle": "Virement",
-      "id": 7
-    },
-    {
-      "compteId": 1,
-      "compteDestinataireId": 2,
-      "type": "virement",
-      "montant": 10000,
-      "date": "2026-07-22",
-      "statut": "reussie",
-      "id": 8
+      "libelle": "Depot fait a Mme Fatou FALL"
     }
   ],
   "credits": [
@@ -204,6 +166,114 @@
           "payee": false
         }
       ]
+    },
+    {
+      "id": 2,
+      "clientId": 2,
+      "montant": 1000000,
+      "tauxInteret": 5.5,
+      "dureeMois": 24,
+      "mensualite": 44096,
+      "dateDemande": "2026-07-22",
+      "statut": "approuve",
+      "echeancier": [
+        {
+          "numero": 1,
+          "dateEcheance": "2026-08-22",
+          "montant": 44096,
+          "payee": false
+        },
+        {
+          "numero": 2,
+          "dateEcheance": "2026-09-22",
+          "montant": 44096,
+          "payee": false
+        }
+      ]
+    },
+    {
+      "clientId": 2,
+      "montant": 1000000,
+      "tauxInteret": 5.5,
+      "dureeMois": 12,
+      "mensualite": 85837,
+      "dateDemande": "2026-07-22",
+      "statut": "refuse",
+      "echeancier": [
+        {
+          "numero": 1,
+          "dateEcheance": "2026-08-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 2,
+          "dateEcheance": "2026-09-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 3,
+          "dateEcheance": "2026-10-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 4,
+          "dateEcheance": "2026-11-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 5,
+          "dateEcheance": "2026-12-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 6,
+          "dateEcheance": "2027-01-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 7,
+          "dateEcheance": "2027-02-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 8,
+          "dateEcheance": "2027-03-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 9,
+          "dateEcheance": "2027-04-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 10,
+          "dateEcheance": "2027-05-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 11,
+          "dateEcheance": "2027-06-22",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 12,
+          "dateEcheance": "2027-07-22",
+          "montant": 85837,
+          "payee": false
+        }
+      ],
+      "id": 3
     }
   ]
 }

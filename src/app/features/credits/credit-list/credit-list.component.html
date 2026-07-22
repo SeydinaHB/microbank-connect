@@ -1,0 +1,101 @@
+<div class="max-w-5xl mx-auto">
+
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Crédits</h1>
+     <a
+      routerLink="/credits/nouveau"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
+    >
+      + Simuler / Demander un crédit
+    </a>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (isLoading()) {
+    <p class="text-gray-500">Chargement...</p>
+  } @else {
+
+    <div class="space-y-4">
+      @for (credit of credits(); track credit.id) {
+        <div class="bg-white rounded-xl shadow p-5">
+
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-semibold text-gray-800">{{ getClientName(credit.clientId) }}</p>
+              <p class="text-sm text-gray-500">Demande du {{ credit.dateDemande }}</p>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase px-2 py-1 rounded-full"
+              [ngClass]="{
+                'bg-yellow-100 text-yellow-700': credit.statut === 'en_attente',
+                'bg-green-100 text-green-700': credit.statut === 'approuve',
+                'bg-red-100 text-red-700': credit.statut === 'refuse',
+                'bg-gray-100 text-gray-700': credit.statut === 'solde' || credit.statut === 'simulation'
+              }"
+            >
+              {{ credit.statut }}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm mb-4">
+            <div>
+              <p class="text-gray-500">Montant</p>
+              <p class="font-semibold text-gray-800">{{ credit.montant | number:'1.0-0':'fr' }} XOF</p>
+            </div>
+            <div>
+              <p class="text-gray-500">Mensualité</p>
+              <p class="font-semibold text-gray-800">{{ credit.mensualite | number:'1.0-0':'fr' }} XOF</p>
+            </div>
+            <div>
+              <p class="text-gray-500">Durée</p>
+              <p class="font-semibold text-gray-800">{{ credit.dureeMois }} mois</p>
+            </div>
+          </div>
+
+          <!-- Échéancier -->
+          <details class="text-sm">
+            <summary class="text-blue-600 cursor-pointer">Voir l'échéancier ({{ credit.echeancier.length }} échéances)</summary>
+            <div class="mt-3 space-y-1">
+              @for (echeance of credit.echeancier; track echeance.numero) {
+                <div class="flex justify-between py-1 border-b border-gray-50">
+                  <span class="text-gray-500">Échéance {{ echeance.numero }} — {{ echeance.dateEcheance }}</span>
+                  <span [ngClass]="echeance.payee ? 'text-green-600' : 'text-gray-700'">
+                    {{ echeance.montant | number:'1.0-0':'fr' }} XOF
+                    {{ echeance.payee ? '✓ Payée' : '' }}
+                  </span>
+                </div>
+              }
+            </div>
+          </details>
+
+          <!-- Actions pour crédit en attente -->
+          @if (credit.statut === 'en_attente') {
+            <div class="flex gap-3 mt-4 pt-4 border-t border-gray-100">
+              <button
+                (click)="approuver(credit)"
+                class="bg-green-600 hover:bg-green-700 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition"
+              >
+                Approuver
+              </button>
+              <button
+                (click)="refuser(credit)"
+                class="bg-red-600 hover:bg-red-700 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition"
+              >
+                Refuser
+              </button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="text-gray-400 text-center py-8">Aucun crédit trouvé.</p>
+      }
+    </div>
+  }
+
+</div>
