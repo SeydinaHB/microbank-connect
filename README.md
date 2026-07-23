@@ -1,59 +1,94 @@
-# MicrobankConnect
+# MicroBank Connect
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.25.
+Plateforme de gestion bancaire et de microfinance — projet de fin de module Développement Frontend Angular v20 (MIAGE 1, ISI Keur Massar).
 
-## Development server
+## Stack technique
 
-To start a local development server, run:
+- **Frontend** : Angular v20 (composants standalone, signals, routing avec lazy loading et guards)
+- **Style** : Tailwind CSS v4
+- **Données** : json-server (API REST fictive) avec données mockées réalistes
+- **Formulaires** : ReactiveFormsModule avec validateurs personnalisés (ex : plafond de retrait)
 
+## Prérequis
+
+- Node.js v22+
+- Angular CLI v20 (`npm install -g @angular/cli@20`)
+
+## Installation
+
+```bash
+git clone https://github.com/SeydinaHB/microbank-connect.git
+cd microbank-connect
+npm install
+```
+
+## Lancement en local
+
+Le projet nécessite **2 processus en parallèle**, dans 2 terminaux séparés :
+
+**Terminal 1 — API fictive (json-server)**
+```bash
+npm run api
+```
+Démarre sur `http://localhost:3001`
+
+**Terminal 2 — Application Angular**
 ```bash
 ng serve
 ```
+Démarre sur `http://localhost:4200`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Comptes de test
 
-## Code scaffolding
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Gestionnaire | awa.diop@microbank.sn | password123 |
+| Agent | moussa.ndiaye@microbank.sn | password123 |
+| Client | fatou.fall@client.sn | password123 |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Architecture du projet
+src/app/
+├── core/ # Services globaux, guards, intercepteur, modèles TypeScript
+│ ├── guards/ # authGuard, roleGuard
+│ ├── interceptors/ # Ajout automatique du token + gestion centralisée des erreurs
+│ ├── services/ # Un service par entité (Client, Compte, Transaction, Credit, Auth, Notification)
+│ └── models/ # Interfaces TypeScript
+├── features/ # Un dossier par module fonctionnel, chargé en lazy loading
+│ ├── auth/
+│ ├── dashboard/
+│ ├── clients/
+│ ├── comptes/
+│ ├── operations/
+│ ├── credits/
+│ └── rapports/
+├── shared/ # Composants réutilisables (ex: notification-bell)
+└── layout/ # Layout général (sidebar + navbar responsive)
+## Rôles et permissions
 
-```bash
-ng generate component component-name
-```
+| Module | Client | Agent | Gestionnaire |
+|---|---|---|---|
+| Consultation de ses comptes/crédits | ✅ | ✅ (tous) | ✅ (tous) |
+| Gestion des clients | ❌ | ✅ | ✅ |
+| Opérations bancaires (dépôt/retrait/virement) | ❌ | ✅ | ✅ |
+| Demande de crédit | ❌ | ✅ | ✅ |
+| Approbation/refus de crédit | ❌ | ✅ | ✅ |
+| Rapports | ❌ | ❌ | ✅ |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Fonctionnalités principales
 
-```bash
-ng generate --help
-```
+- Authentification avec gestion de rôles (signals, guards, intercepteur HTTP)
+- Gestion des clients (CRUD, recherche, fiche détaillée)
+- Comptes bancaires (ouverture, consultation, historique des transactions)
+- Opérations bancaires avec validateur personnalisé de plafond de retrait
+- Crédits : simulation avec calcul de mensualité en temps réel, demande, échéancier, workflow d'approbation
+- Notifications in-app (solde bas, échéances de crédit proches/dépassées)
+- Rapports agrégés pour le Gestionnaire
+- Interface responsive (sidebar en tiroir sur mobile)
 
-## Building
+## Note technique
 
-To build the project run:
+Voir `NOTE_TECHNIQUE.docx` pour le détail des choix d'architecture, difficultés rencontrées et pistes d'amélioration.
 
-```bash
-ng build
-```
+## Auteur
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Mohamed NDIAYE — MIAGE 1, ISI Keur Massar
