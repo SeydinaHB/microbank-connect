@@ -23,9 +23,8 @@ export class CreditListComponent implements OnInit {
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
-  // Un client ne peut ni approuver ni refuser ses propres crédits (seul agent/gestionnaire le peut)
-  canManageCredits = this.authService.userRole() !== 'client';
-
+canRequestCredit = this.authService.userRole() === 'agent';
+canApproveCredit = this.authService.userRole() === 'gestionnaire';
   ngOnInit(): void {
     this.isLoading.set(true);
 

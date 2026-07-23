@@ -42,6 +42,9 @@
               <div>
                 <p class="text-sm font-medium text-gray-800 capitalize">
                   {{ transaction.type }}
+                  @if (transaction.type === 'virement') {
+                    <span class="text-gray-500 font-normal">({{ getDescriptionVirement(transaction) }})</span>
+                  }
                   @if (transaction.libelle) {
                     <span class="text-gray-400 font-normal">— {{ transaction.libelle }}</span>
                   }

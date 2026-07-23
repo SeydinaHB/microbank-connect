@@ -67,7 +67,7 @@
       "numeroCompte": "MB-0001",
       "clientId": 1,
       "type": "courant",
-      "solde": 200000,
+      "solde": 180000,
       "devise": "XOF",
       "dateOuverture": "2025-01-10",
       "statut": "actif"
@@ -101,6 +101,16 @@
       "devise": "XOF",
       "dateOuverture": "2026-07-22",
       "statut": "actif"
+    },
+    {
+      "numeroCompte": "MB-6889",
+      "clientId": 3,
+      "type": "courant",
+      "solde": 220000,
+      "devise": "XOF",
+      "dateOuverture": "2026-07-23",
+      "statut": "actif",
+      "id": 5
     }
   ],
   "transactions": [
@@ -148,6 +158,15 @@
       "date": "2026-07-22",
       "statut": "reussie",
       "id": 5
+    },
+    {
+      "compteId": 1,
+      "compteDestinataireId": 5,
+      "type": "virement",
+      "montant": 20000,
+      "date": "2026-07-23",
+      "statut": "reussie",
+      "id": 6
     }
   ],
   "credits": [

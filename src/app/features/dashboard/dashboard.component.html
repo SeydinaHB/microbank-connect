@@ -3,7 +3,11 @@
   <h1 class="text-2xl font-bold text-gray-800 mb-1">
     Bonjour, {{ authService.currentUser()?.prenom }} 👋
   </h1>
-  <p class="text-gray-500 mb-6">Voici un aperçu de votre activité.</p>
+      @if (isGestionnaireRole) {
+        <p class="text-sm text-gray-500 mb-6">Voici un aperçu de l'activité de la banque.</p>
+      } @else {
+        <p class="text-sm text-gray-500 mb-6">RACCOURCIS</p>
+      }
 
   @if (isLoading()) {
     <p class="text-gray-500">Chargement...</p>
@@ -91,8 +95,11 @@
   } @else {
 
     <!-- ===== DASHBOARD AGENT / GESTIONNAIRE ===== -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
+      [ngClass]="isGestionnaireRole ? 'lg:grid-cols-4' : 'lg:grid-cols-3'"
+    >
+    @if (isGestionnaireRole) {
       <div class="bg-white rounded-xl shadow p-5">
         <p class="text-sm text-gray-500">Clients</p>
         <p class="text-3xl font-bold text-gray-800 mt-1">{{ nombreClients() }}</p>
@@ -105,10 +112,12 @@
         <p class="text-sm text-gray-500">Crédits en attente</p>
         <p class="text-3xl font-bold text-yellow-600 mt-1">{{ creditsEnAttente() }}</p>
       </div>
-      <div class="bg-white rounded-xl shadow p-5">
-        <p class="text-sm text-gray-500">Encours total</p>
-        <p class="text-2xl font-bold text-teal-700 mt-1">{{ encoursTotal() | number:'1.0-0':'fr' }} XOF</p>
-      </div>
+      
+        <div class="bg-white rounded-xl shadow p-5">
+          <p class="text-sm text-gray-500">Encours total</p>
+          <p class="text-2xl font-bold text-teal-700 mt-1">{{ encoursTotal() | number:'1.0-0':'fr' }} XOF</p>
+        </div>
+      }
     </div>
 
     <!-- Accès rapides -->

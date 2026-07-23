@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   isLoading = signal(true);
   isClientRole = this.authService.userRole() === 'client';
+isGestionnaireRole = this.authService.userRole() === 'gestionnaire';
 
   // Données Client
   mesComptes = signal<Compte[]>([]);

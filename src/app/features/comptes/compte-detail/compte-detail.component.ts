@@ -23,6 +23,8 @@ export class CompteDetailComponent implements OnInit {
   compte = signal<Compte | null>(null);
   client = signal<Client | null>(null);
   transactions = signal<Transaction[]>([]);
+  tousLesComptes = signal<Compte[]>([]);
+  tousLesClients = signal<Client[]>([]);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
@@ -40,6 +42,13 @@ export class CompteDetailComponent implements OnInit {
         this.compte.set(compte);
         this.clientService.getById(compte.clientId).subscribe({
           next: (client) => this.client.set(client)
+        });
+        // Nécessaire pour retrouver le numéro du compte destinataire/source dans l'historique
+        this.compteService.getAll().subscribe({
+          next: (comptes) => this.tousLesComptes.set(comptes)
+        });
+        this.clientService.getAll().subscribe({
+          next: (clients) => this.tousLesClients.set(clients)
         });
         this.loadTransactions(id);
       },
@@ -60,14 +69,29 @@ export class CompteDetailComponent implements OnInit {
     });
   }
 
-  // Le montant peut apparaître en positif ou négatif selon la direction du flux, pour cette carte de compte précise
   getMontantSigne(transaction: Transaction): number {
     if (transaction.type === 'depot') return transaction.montant;
     if (transaction.type === 'retrait') return -transaction.montant;
-    // Virement : négatif si ce compte est la source, positif si destinataire
     if (transaction.type === 'virement') {
       return transaction.compteId === this.compte()?.id ? -transaction.montant : transaction.montant;
     }
     return transaction.montant;
+  }
+
+  // Pour un virement : affiche "vers <numéro>" si ce compte est la source, "de <numéro>" si ce compte est le destinataire
+  // Pour un virement : affiche "vers <nom du client>" si ce compte est la source, "de <nom du client>" si ce compte est le destinataire
+  getDescriptionVirement(transaction: Transaction): string {
+    if (transaction.type !== 'virement') return '';
+
+    const estSource = transaction.compteId === this.compte()?.id;
+    const autreCompteId = estSource ? transaction.compteDestinataireId : transaction.compteId;
+    const autreCompte = this.tousLesComptes().find((c) => c.id === autreCompteId);
+
+    if (!autreCompte) return estSource ? 'vers un compte inconnu' : "d'un compte inconnu";
+
+    const autreClient = this.tousLesClients().find((c) => c.id === autreCompte.clientId);
+    const nom = autreClient ? `${autreClient.prenom} ${autreClient.nom}` : 'un client inconnu';
+
+    return estSource ? `vers ${nom}` : `de ${nom}`;
   }
 }

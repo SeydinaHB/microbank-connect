@@ -64,9 +64,9 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/credits/credit-list/credit-list.component').then(m => m.CreditListComponent)
       },
-     {
+   {
   path: 'credits/nouveau',
-  canActivate: [roleGuard(['agent', 'gestionnaire'])],
+  canActivate: [roleGuard(['agent'])],
   loadComponent: () =>
     import('./features/credits/credit-simulation/credit-simulation.component').then(m => m.CreditSimulationComponent)
 },
