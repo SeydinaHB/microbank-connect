@@ -1,5 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, computed, signal } from '@angular/core';import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 import { NotificationBellComponent } from '../shared/components/notification-bell/notification-bell.component';
 interface NavItem {
@@ -16,6 +15,17 @@ interface NavItem {
 })
 export class MainLayoutComponent {
   authService = inject(AuthService);
+
+  // Contrôle l'affichage de la sidebar sur mobile (fermée par défaut pour ne pas cacher le contenu)
+  isSidebarOpen = signal(false);
+
+  toggleSidebar(): void {
+    this.isSidebarOpen.update((value) => !value);
+  }
+
+  closeSidebar(): void {
+    this.isSidebarOpen.set(false);
+  }
 
   private allNavItems: Record<string, NavItem[]> = {
     client: [

@@ -64,11 +64,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/credits/credit-list/credit-list.component').then(m => m.CreditListComponent)
       },
-      {
-        path: 'credits/nouveau',
-        loadComponent: () =>
-          import('./features/credits/credit-simulation/credit-simulation.component').then(m => m.CreditSimulationComponent)
-      },
+     {
+  path: 'credits/nouveau',
+  canActivate: [roleGuard(['agent', 'gestionnaire'])],
+  loadComponent: () =>
+    import('./features/credits/credit-simulation/credit-simulation.component').then(m => m.CreditSimulationComponent)
+},
       {
   path: 'rapports',
   canActivate: [roleGuard(['gestionnaire'])],

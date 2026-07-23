@@ -9,7 +9,7 @@
       <label class="block text-sm font-medium text-gray-700 mb-1">Type d'opération</label>
       <select
         formControlName="type"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       >
         <option value="depot">Dépôt</option>
         <option value="retrait">Retrait</option>
@@ -28,7 +28,7 @@
       </label>
       <select
         formControlName="compteId"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       >
         <option value="" disabled>-- Choisir un compte --</option>
         @for (compte of comptes(); track compte.id) {
@@ -48,7 +48,7 @@
         <label class="block text-sm font-medium text-gray-700 mb-1">Compte destinataire</label>
         <select
           formControlName="compteDestinataireId"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         >
           <option value="" disabled>-- Choisir un compte --</option>
           @for (compte of comptes(); track compte.id) {
@@ -65,7 +65,7 @@
         type="number"
         formControlName="montant"
         min="1"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
       @if (operationForm.get('montant')?.hasError('required') && operationForm.get('montant')?.touched) {
         <p class="text-red-600 text-xs mt-1">Le montant est requis.</p>
@@ -87,7 +87,7 @@
         type="text"
         formControlName="libelle"
         placeholder="ex: Retrait guichet, Virement loyer..."
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
     </div>
 
@@ -103,7 +103,7 @@
     <button
       type="submit"
       [disabled]="isLoading()"
-      class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold py-2.5 rounded-lg transition"
+      class="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-300 text-white font-semibold py-2.5 rounded-lg transition"
     >
       @if (isLoading()) {
         Traitement en cours...

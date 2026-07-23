@@ -1,0 +1,139 @@
+<div class="max-w-6xl mx-auto">
+
+  <h1 class="text-2xl font-bold text-gray-800 mb-1">
+    Bonjour, {{ authService.currentUser()?.prenom }} 👋
+  </h1>
+  <p class="text-gray-500 mb-6">Voici un aperçu de votre activité.</p>
+
+  @if (isLoading()) {
+    <p class="text-gray-500">Chargement...</p>
+  } @else if (isClientRole) {
+
+    <!-- ===== DASHBOARD CLIENT ===== -->
+
+    <!-- Solde total -->
+    <div class="bg-slate-800 text-white rounded-xl shadow p-6 mb-6">
+      <p class="text-teal-200 text-sm">Solde total sur vos comptes</p>
+      <p class="text-3xl font-bold mt-1">{{ soldeTotal() | number:'1.0-0':'fr' }} XOF</p>
+      <p class="text-teal-200 text-sm mt-2">{{ mesComptes().length }} compte(s) actif(s)</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Mes comptes -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-800">Mes comptes</h2>
+          <a routerLink="/comptes" class="text-sm text-teal-600 hover:underline">Voir tout</a>
+        </div>
+        @if (mesComptes().length === 0) {
+          <p class="text-gray-400 text-sm">Aucun compte.</p>
+        } @else {
+          <div class="space-y-2">
+            @for (compte of mesComptes(); track compte.id) {
+              <div class="flex justify-between text-sm py-2 border-b border-gray-50 last:border-0">
+                <span class="text-gray-600">{{ compte.numeroCompte }} ({{ compte.type }})</span>
+                <span class="font-semibold text-gray-800">{{ compte.solde | number:'1.0-0':'fr' }} XOF</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Mes crédits -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-800">Mes crédits</h2>
+          <a routerLink="/credits" class="text-sm text-teal-600 hover:underline">Voir tout</a>
+        </div>
+        @if (mesCredits().length === 0) {
+          <p class="text-gray-400 text-sm">Aucun crédit en cours.</p>
+        } @else {
+          <div class="space-y-2">
+            @for (credit of mesCredits(); track credit.id) {
+              <div class="flex justify-between items-center text-sm py-2 border-b border-gray-50 last:border-0">
+                <span class="text-gray-600">{{ credit.montant | number:'1.0-0':'fr' }} XOF sur {{ credit.dureeMois }} mois</span>
+                <span
+                  class="text-xs font-semibold uppercase px-2 py-0.5 rounded-full"
+                  [ngClass]="{
+                    'bg-yellow-100 text-yellow-700': credit.statut === 'en_attente',
+                    'bg-green-100 text-green-700': credit.statut === 'approuve',
+                    'bg-red-100 text-red-700': credit.statut === 'refuse'
+                  }"
+                >
+                  {{ credit.statut }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Dernières transactions -->
+    <div class="bg-white rounded-xl shadow p-6 mt-4">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Dernières transactions</h2>
+      @if (mesTransactions().length === 0) {
+        <p class="text-gray-400 text-sm">Aucune transaction récente.</p>
+      } @else {
+        <div class="space-y-2">
+          @for (transaction of mesTransactions(); track transaction.id) {
+            <div class="flex justify-between text-sm py-2 border-b border-gray-50 last:border-0">
+              <span class="text-gray-600 capitalize">{{ transaction.type }} — {{ transaction.date }}</span>
+              <span class="font-medium text-gray-800">{{ transaction.montant | number:'1.0-0':'fr' }} XOF</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  } @else {
+
+    <!-- ===== DASHBOARD AGENT / GESTIONNAIRE ===== -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-sm text-gray-500">Clients</p>
+        <p class="text-3xl font-bold text-gray-800 mt-1">{{ nombreClients() }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-sm text-gray-500">Comptes actifs</p>
+        <p class="text-3xl font-bold text-gray-800 mt-1">{{ nombreComptesActifs() }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-sm text-gray-500">Crédits en attente</p>
+        <p class="text-3xl font-bold text-yellow-600 mt-1">{{ creditsEnAttente() }}</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-sm text-gray-500">Encours total</p>
+        <p class="text-2xl font-bold text-teal-700 mt-1">{{ encoursTotal() | number:'1.0-0':'fr' }} XOF</p>
+      </div>
+    </div>
+
+    <!-- Accès rapides -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Accès rapides</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a routerLink="/clients" class="bg-gray-50 hover:bg-gray-100 rounded-lg p-4 text-center transition">
+          <span class="text-2xl block mb-1">👥</span>
+          <span class="text-sm text-gray-700">Clients</span>
+        </a>
+        <a routerLink="/operations" class="bg-gray-50 hover:bg-gray-100 rounded-lg p-4 text-center transition">
+          <span class="text-2xl block mb-1">🔁</span>
+          <span class="text-sm text-gray-700">Opérations</span>
+        </a>
+        <a routerLink="/credits" class="bg-gray-50 hover:bg-gray-100 rounded-lg p-4 text-center transition">
+          <span class="text-2xl block mb-1">💰</span>
+          <span class="text-sm text-gray-700">Crédits</span>
+        </a>
+        <a routerLink="/comptes" class="bg-gray-50 hover:bg-gray-100 rounded-lg p-4 text-center transition">
+          <span class="text-2xl block mb-1">💳</span>
+          <span class="text-sm text-gray-700">Comptes</span>
+        </a>
+      </div>
+    </div>
+
+  }
+
+</div>

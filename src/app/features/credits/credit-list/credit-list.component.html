@@ -2,12 +2,14 @@
 
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-bold text-gray-800">Crédits</h1>
-     <a
-      routerLink="/credits/nouveau"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
-    >
-      + Simuler / Demander un crédit
-    </a>
+    @if (canManageCredits) {
+      <a 
+        routerLink="/credits/nouveau"
+        class="bg-teal-600 hover:bg-teal-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
+      >
+        + Simuler / Demander un crédit
+      </a>
+    }
   </div>
 
   @if (errorMessage()) {
@@ -59,7 +61,7 @@
 
           <!-- Échéancier -->
           <details class="text-sm">
-            <summary class="text-blue-600 cursor-pointer">Voir l'échéancier ({{ credit.echeancier.length }} échéances)</summary>
+            <summary class="text-teal-600 cursor-pointer">Voir l'échéancier ({{ credit.echeancier.length }} échéances)</summary>
             <div class="mt-3 space-y-1">
               @for (echeance of credit.echeancier; track echeance.numero) {
                 <div class="flex justify-between py-1 border-b border-gray-50">

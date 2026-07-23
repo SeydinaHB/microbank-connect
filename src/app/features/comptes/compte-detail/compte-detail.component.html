@@ -1,6 +1,6 @@
 <div class="max-w-3xl mx-auto">
 
-  <a routerLink="/comptes" class="text-blue-600 hover:underline text-sm mb-4 inline-block">
+  <a routerLink="/comptes" class="text-teal-600 hover:underline text-sm mb-4 inline-block">
     ← Retour aux comptes
   </a>
 
@@ -13,17 +13,17 @@
   } @else if (compte(); as c) {
 
     <!-- Carte solde -->
-    <div class="bg-blue-800 text-white rounded-xl shadow p-6 mb-6">
+    <div class="bg-slate-800 text-white rounded-xl shadow p-6 mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xs uppercase font-semibold bg-blue-700 px-2 py-1 rounded-full">{{ c.type }}</span>
-        <span class="text-xs uppercase text-blue-200">{{ c.statut }}</span>
+        <span class="text-xs uppercase font-semibold bg-teal-700 px-2 py-1 rounded-full">{{ c.type }}</span>
+        <span class="text-xs uppercase text-teal-200">{{ c.statut }}</span>
       </div>
-      <p class="text-blue-200 text-sm mt-4">{{ c.numeroCompte }}</p>
+      <p class="text-teal-200 text-sm mt-4">{{ c.numeroCompte }}</p>
       <p class="text-3xl font-bold mt-1">{{ c.solde | number:'1.0-0':'fr' }} {{ c.devise }}</p>
 
       @if (client(); as cl) {
-        <div class="mt-4 pt-4 border-t border-blue-700 flex items-center justify-between text-sm">
-          <span class="text-blue-200">Titulaire</span>
+        <div class="mt-4 pt-4 border-t border-teal-700 flex items-center justify-between text-sm">
+          <span class="text-teal-200">Titulaire</span>
           <a [routerLink]="['/clients', cl.id]" class="hover:underline font-medium">{{ cl.prenom }} {{ cl.nom }}</a>
         </div>
       }

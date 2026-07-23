@@ -9,7 +9,7 @@
       <label class="block text-sm font-medium text-gray-700 mb-1">Client</label>
       <select
         formControlName="clientId"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       >
         <option value="" disabled>-- Choisir un client --</option>
         @for (client of clients(); track client.id) {
@@ -26,7 +26,7 @@
       <label class="block text-sm font-medium text-gray-700 mb-1">Type de compte</label>
       <select
         formControlName="type"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       >
         <option value="courant">Compte courant</option>
         <option value="epargne">Compte épargne</option>
@@ -40,7 +40,7 @@
         type="number"
         formControlName="soldeInitial"
         min="0"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
       @if (compteForm.get('soldeInitial')?.invalid && compteForm.get('soldeInitial')?.touched) {
         <p class="text-red-600 text-xs mt-1">Le solde initial doit être positif ou nul.</p>
@@ -64,7 +64,7 @@
       <button
         type="submit"
         [disabled]="isLoading()"
-        class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
+        class="bg-teal-600 hover:bg-teal-700 disabled:bg-teal-300 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
       >
         @if (isLoading()) {
           Ouverture en cours...

@@ -11,7 +11,7 @@
         <input
           type="text"
           formControlName="nom"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         @if (clientForm.get('nom')?.invalid && clientForm.get('nom')?.touched) {
           <p class="text-red-600 text-xs mt-1">Le nom est requis (2 caractères min).</p>
@@ -24,7 +24,7 @@
         <input
           type="text"
           formControlName="prenom"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         @if (clientForm.get('prenom')?.invalid && clientForm.get('prenom')?.touched) {
           <p class="text-red-600 text-xs mt-1">Le prénom est requis (2 caractères min).</p>
@@ -38,7 +38,7 @@
       <input
         type="email"
         formControlName="email"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
       @if (clientForm.get('email')?.invalid && clientForm.get('email')?.touched) {
         <p class="text-red-600 text-xs mt-1">Email invalide.</p>
@@ -53,7 +53,7 @@
           type="text"
           formControlName="telephone"
           placeholder="771234567"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         @if (clientForm.get('telephone')?.invalid && clientForm.get('telephone')?.touched) {
           <p class="text-red-600 text-xs mt-1">Format attendu : 771234567 (9 chiffres, commence par 7).</p>
@@ -66,7 +66,7 @@
         <input
           type="date"
           formControlName="dateNaissance"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         @if (clientForm.get('dateNaissance')?.invalid && clientForm.get('dateNaissance')?.touched) {
           <p class="text-red-600 text-xs mt-1">La date de naissance est requise.</p>
@@ -80,7 +80,7 @@
       <input
         type="text"
         formControlName="adresse"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
       @if (clientForm.get('adresse')?.invalid && clientForm.get('adresse')?.touched) {
         <p class="text-red-600 text-xs mt-1">L'adresse est requise.</p>
@@ -93,7 +93,7 @@
       <input
         type="text"
         formControlName="numeroCni"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
       />
       @if (clientForm.get('numeroCni')?.invalid && clientForm.get('numeroCni')?.touched) {
         <p class="text-red-600 text-xs mt-1">Numéro CNI invalide (10 caractères min).</p>
@@ -117,7 +117,7 @@
       <button
         type="submit"
         [disabled]="isLoading()"
-        class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
+        class="bg-teal-600 hover:bg-teal-700 disabled:bg-teal-300 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
       >
         @if (isLoading()) {
           Création en cours...

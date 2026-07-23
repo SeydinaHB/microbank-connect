@@ -21,7 +21,7 @@
 
       <div class="bg-white rounded-xl shadow p-5">
         <p class="text-sm text-gray-500">Encours total (comptes)</p>
-        <p class="text-2xl font-bold text-blue-700 mt-1">{{ encoursTotal() | number:'1.0-0':'fr' }} XOF</p>
+        <p class="text-2xl font-bold text-teal-700 mt-1">{{ encoursTotal() | number:'1.0-0':'fr' }} XOF</p>
       </div>
 
       <div class="bg-white rounded-xl shadow p-5">
@@ -48,7 +48,7 @@
           </div>
           <div class="flex justify-between pt-3 border-t border-gray-100">
             <span class="text-gray-500">Encours crédits approuvés</span>
-            <span class="font-semibold text-blue-700">{{ encoursCreditsApprouves() | number:'1.0-0':'fr' }} XOF</span>
+            <span class="font-semibold text-teal-700">{{ encoursCreditsApprouves() | number:'1.0-0':'fr' }} XOF</span>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <span class="font-medium">{{ repartitionParType().courant }} ({{ repartitionParType().pourcentageCourant }}%)</span>
             </div>
             <div class="w-full bg-gray-100 rounded-full h-2">
-              <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="repartitionParType().pourcentageCourant"></div>
+              <div class="bg-teal-600 h-2 rounded-full" [style.width.%]="repartitionParType().pourcentageCourant"></div>
             </div>
           </div>
 

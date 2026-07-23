@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold text-gray-800">Gestion des clients</h1>
     <a
       routerLink="/clients/nouveau"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
+      class="bg-teal-600 hover:bg-teal-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition"
     >
       + Nouveau client
     </a>
@@ -18,7 +18,7 @@
       [(ngModel)]="searchQuery"
       (keyup.enter)="onSearch()"
       placeholder="Rechercher un client (nom, email...)"
-      class="w-full max-w-md border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      class="w-full max-w-md border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
     />
   </div>
 
@@ -54,7 +54,7 @@
               <td class="px-4 py-3 text-gray-600">{{ client.telephone }}</td>
               <td class="px-4 py-3 text-gray-600">{{ client.dateCreation }}</td>
               <td class="px-4 py-3 text-right space-x-3">
-                <a [routerLink]="['/clients', client.id]" class="text-blue-600 hover:underline">Voir</a>
+                <a [routerLink]="['/clients', client.id]" class="text-teal-600 hover:underline">Voir</a>
                 <button (click)="onDelete(client.id)" class="text-red-600 hover:underline">Supprimer</button>
               </td>
             </tr>
