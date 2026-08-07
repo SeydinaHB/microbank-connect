@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientService } from '../../../core/services/client.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-client-form',
@@ -12,10 +13,12 @@ import { ClientService } from '../../../core/services/client.service';
 export class ClientFormComponent {
   private fb = inject(FormBuilder);
   private clientService = inject(ClientService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
 
   clientForm = this.fb.group({
     nom: ['', [Validators.required, Validators.minLength(2)]],
@@ -35,6 +38,7 @@ export class ClientFormComponent {
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
+    this.successMessage.set(null);
 
     const formValue = this.clientForm.value;
     const newClient = {
@@ -49,9 +53,19 @@ export class ClientFormComponent {
     };
 
     this.clientService.create(newClient).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/clients']);
+      next: (client) => {
+        // Le compte de connexion est créé automatiquement, avec mot de passe par défaut à changer
+        this.userService.createUserForClient(client.id, client.nom, client.prenom, client.email).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this.successMessage.set('Client créé avec succès ! Son compte de connexion a été généré (mot de passe par défaut : password123).');
+            setTimeout(() => this.router.navigate(['/clients']), 1800);
+          },
+          error: () => {
+            this.isLoading.set(false);
+            this.errorMessage.set("Client créé, mais échec de la création de son compte de connexion.");
+          }
+        });
       },
       error: () => {
         this.isLoading.set(false);

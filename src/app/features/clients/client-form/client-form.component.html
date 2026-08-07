@@ -100,11 +100,13 @@
       }
     </div>
 
-    <!-- Erreur serveur -->
+ <!-- Messages -->
     @if (errorMessage()) {
       <p class="text-red-600 text-sm text-center">{{ errorMessage() }}</p>
     }
-
+    @if (successMessage()) {
+      <p class="text-green-600 text-sm text-center font-medium">{{ successMessage() }}</p>
+    }
     <!-- Boutons -->
     <div class="flex justify-end gap-3 pt-2">
       <button

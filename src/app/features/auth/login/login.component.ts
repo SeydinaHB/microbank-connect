@@ -33,10 +33,14 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email!, password!).subscribe({
+   this.authService.login(email!, password!).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.router.navigate(['/dashboard']);
+        if (this.authService.mustChangePassword()) {
+          this.router.navigate(['/auth/changer-mot-de-passe']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       },
       error: () => {
         this.isLoading.set(false);

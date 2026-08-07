@@ -83,8 +83,14 @@ export const routes: Routes = [
       }
     ]
   },
+   {
+  path: 'auth/changer-mot-de-passe',
+  loadComponent: () =>
+    import('./features/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent)
+},
   {
     path: '**',
     redirectTo: 'dashboard'
   }
+ 
 ];

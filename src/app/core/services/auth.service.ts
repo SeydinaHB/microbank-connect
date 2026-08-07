@@ -19,6 +19,7 @@ export class AuthService {
   // Signals dérivés (computed) très pratiques pour les templates et les guards
   isAuthenticated = computed(() => this.currentUserSignal() !== null);
   userRole = computed<Role | null>(() => this.currentUserSignal()?.role ?? null);
+  mustChangePassword = computed(() => this.currentUserSignal()?.mustChangePassword === true);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -41,6 +42,23 @@ export class AuthService {
           this.setSession(user, fakeToken);
         })
       ) as unknown as Observable<AuthResponse>;
+  }
+
+changePassword(newPassword: string): Observable<User> {
+    const user = this.currentUserSignal();
+    if (!user) {
+      throw new Error('Aucun utilisateur connecté.');
+    }
+
+    return this.http.patch<User>(`${API_URL}/users/${user.id}`, {
+      password: newPassword,
+      mustChangePassword: false
+    }).pipe(
+      tap((updatedUser) => {
+        // On met à jour le signal ET le localStorage pour rester cohérent
+        this.setSession(updatedUser, this.getToken()!);
+      })
+    );
   }
 
   logout(): void {
