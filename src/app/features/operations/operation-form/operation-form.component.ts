@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, Validators, AbstractControl, Validati
 import { Router } from '@angular/router';
 import { CompteService } from '../../../core/services/compte.service';
 import { TransactionService } from '../../../core/services/transaction.service';
+import { NotificationRecordService } from '../../../core/services/notification-record.service';
 import { Compte } from '../../../core/models/compte.model';
 
 @Component({
@@ -16,6 +17,7 @@ export class OperationFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private compteService = inject(CompteService);
   private transactionService = inject(TransactionService);
+  private notificationRecordService = inject(NotificationRecordService);
   private router = inject(Router);
 
   comptes = signal<Compte[]>([]);
@@ -141,9 +143,47 @@ if (!compte) {
     }
   }
 
-  private finishSuccess(): void {
+private finishSuccess(): void {
+    this.notifierClient();
     this.isLoading.set(false);
     this.successMessage.set('Opération effectuée avec succès !');
     setTimeout(() => this.router.navigate(['/comptes']), 1200);
+  }
+
+  // Crée une notification pour le(s) client(s) concerné(s) par l'opération
+  private notifierClient(): void {
+    const formValue = this.operationForm.value;
+    const compte = this.compteSource();
+    if (!compte) return;
+
+    const montant = Number(formValue.montant);
+    const type = formValue.type;
+
+    if (type === 'depot') {
+      this.notificationRecordService.creer(
+        compte.clientId, 'operation',
+        `Votre compte ${compte.numeroCompte} a été crédité de ${montant.toLocaleString('fr-FR')} XOF.`
+      ).subscribe();
+    } else if (type === 'retrait') {
+      this.notificationRecordService.creer(
+        compte.clientId, 'operation',
+        `Un retrait de ${montant.toLocaleString('fr-FR')} XOF a été effectué sur votre compte ${compte.numeroCompte}.`
+      ).subscribe();
+    } else if (type === 'virement') {
+      // Le client source est notifié du débit
+      this.notificationRecordService.creer(
+        compte.clientId, 'operation',
+        `Un virement de ${montant.toLocaleString('fr-FR')} XOF a été émis depuis votre compte ${compte.numeroCompte}.`
+      ).subscribe();
+
+      // Le client destinataire est notifié du crédit (s'il est différent du client source)
+      const compteDest = this.comptes().find((c) => c.id === Number(formValue.compteDestinataireId));
+      if (compteDest && compteDest.clientId !== compte.clientId) {
+        this.notificationRecordService.creer(
+          compteDest.clientId, 'operation',
+          `Votre compte ${compteDest.numeroCompte} a reçu un virement de ${montant.toLocaleString('fr-FR')} XOF.`
+        ).subscribe();
+      }
+    }
   }
 }

@@ -80,7 +80,12 @@ export const routes: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'
-      }
+      },
+      {
+  path: 'profil',
+  loadComponent: () =>
+    import('./features/profil/profil.component').then(m => m.ProfilComponent)
+}
     ]
   },
    {

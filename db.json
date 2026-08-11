@@ -249,6 +249,108 @@
         }
       ],
       "id": 4
+    },
+    {
+      "clientId": 1,
+      "montant": 1000000,
+      "tauxInteret": 5.5,
+      "dureeMois": 12,
+      "mensualite": 85837,
+      "dateDemande": "2026-08-11",
+      "statut": "approuve",
+      "echeancier": [
+        {
+          "numero": 1,
+          "dateEcheance": "2026-09-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 2,
+          "dateEcheance": "2026-10-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 3,
+          "dateEcheance": "2026-11-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 4,
+          "dateEcheance": "2026-12-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 5,
+          "dateEcheance": "2027-01-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 6,
+          "dateEcheance": "2027-02-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 7,
+          "dateEcheance": "2027-03-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 8,
+          "dateEcheance": "2027-04-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 9,
+          "dateEcheance": "2027-05-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 10,
+          "dateEcheance": "2027-06-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 11,
+          "dateEcheance": "2027-07-11",
+          "montant": 85837,
+          "payee": false
+        },
+        {
+          "numero": 12,
+          "dateEcheance": "2027-08-11",
+          "montant": 85837,
+          "payee": false
+        }
+      ],
+      "id": 5
+    }
+  ],
+  "notifications": [
+    {
+      "clientId": 1,
+      "type": "credit_demande",
+      "message": "Votre demande de crédit de 1 000 000 XOF a été soumise et est en attente de traitement.",
+      "date": "2026-08-11T21:22:12.590Z",
+      "lue": false,
+      "id": 1
+    },
+    {
+      "clientId": 1,
+      "type": "credit_approuve",
+      "message": "Votre demande de crédit de 1 000 000 XOF a été approuvée.",
+      "date": "2026-08-11T21:22:34.912Z",
+      "lue": false,
+      "id": 2
     }
   ]
 }

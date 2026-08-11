@@ -7,7 +7,7 @@ import { ClientService } from '../../../core/services/client.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Client } from '../../../core/models/client.model';
 import { Echeance } from '../../../core/models/credit.model';
-
+import { NotificationRecordService } from '../../../core/services/notification-record.service';
 @Component({
   selector: 'app-credit-simulation',
   standalone: true,
@@ -20,6 +20,7 @@ export class CreditSimulationComponent implements OnInit {
   private clientService = inject(ClientService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private notificationRecordService = inject(NotificationRecordService);
 
   clients = signal<Client[]>([]);
   isLoading = signal(false);
@@ -117,6 +118,10 @@ export class CreditSimulationComponent implements OnInit {
 
     this.creditService.create(newCredit).subscribe({
       next: () => {
+        this.notificationRecordService.creer(
+          newCredit.clientId, 'credit_demande',
+          `Votre demande de crédit de ${newCredit.montant.toLocaleString('fr-FR')} XOF a été soumise et est en attente de traitement.`
+        ).subscribe();
         this.isLoading.set(false);
         this.router.navigate(['/credits']);
       },

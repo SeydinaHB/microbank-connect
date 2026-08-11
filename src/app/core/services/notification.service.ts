@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { forkJoin, map, Observable } from 'rxjs';
+import { forkJoin, map, Observable, of } from 'rxjs';
 import { CompteService } from './compte.service';
 import { CreditService } from './credit.service';
 import { AuthService } from './auth.service';
+import { NotificationRecordService } from './notification-record.service';
 
 export interface AppNotification {
   id: string;
-  type: 'solde_bas' | 'echeance_proche' | 'echeance_depassee';
+  type: 'solde_bas' | 'echeance_proche' | 'echeance_depassee' | 'operation' | 'credit_approuve' | 'credit_refuse' | 'credit_demande';
   message: string;
   niveau: 'info' | 'warning' | 'danger';
 }
@@ -19,16 +20,35 @@ export class NotificationService {
   private compteService = inject(CompteService);
   private creditService = inject(CreditService);
   private authService = inject(AuthService);
+  private notificationRecordService = inject(NotificationRecordService);
 
   getNotifications(): Observable<AppNotification[]> {
+    const role = this.authService.userRole();
+    const currentUser = this.authService.currentUser();
+
+    // Les notifications d'activité persistées ne concernent que le Client (pas Agent/Gestionnaire)
+    const notificationsPersistees$ =
+      role === 'client' && currentUser?.clientId
+        ? this.notificationRecordService.getByClientId(currentUser.clientId)
+        : of([]);
+
     return forkJoin({
       comptes: this.compteService.getAll(),
-      credits: this.creditService.getAll()
+      credits: this.creditService.getAll(),
+      notificationsPersistees: notificationsPersistees$
     }).pipe(
-      map(({ comptes, credits }) => {
-        const role = this.authService.userRole();
-        const currentUser = this.authService.currentUser();
+      map(({ comptes, credits, notificationsPersistees }) => {
         const notifications: AppNotification[] = [];
+
+        // Notifications d'activité persistées (dépôt, retrait, virement, crédit approuvé/refusé/demandé)
+        for (const n of notificationsPersistees) {
+          notifications.push({
+            id: `activite-${n.id}`,
+            type: n.type as AppNotification['type'],
+            message: n.message,
+            niveau: n.type === 'credit_refuse' ? 'danger' : 'info'
+          });
+        }
 
         // Si Client : on ne garde que ses propres comptes/crédits, comme partout ailleurs dans l'app
         const mesComptes =

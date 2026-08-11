@@ -1,6 +1,32 @@
 <div class="max-w-6xl mx-auto">
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Rapports & statistiques</h1>
+    @if (!isLoading()) {
+      <button
+        (click)="exporterPDF()"
+        class="bg-teal-600 hover:bg-teal-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition flex items-center gap-2"
+      >
+        📄 Exporter en PDF
+      </button>
+    }
+  </div>
+  <!-- Graphiques : toujours présents dans le DOM pour que ViewChild les trouve dès ngAfterViewInit -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Répartition des crédits</h2>
+      <div class="h-64">
+        <canvas #chartCredits></canvas>
+      </div>
+    </div>
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Encours par type de compte</h2>
+      <div class="h-64">
+        <canvas #chartComptes></canvas>
+      </div>
+    </div>
+  </div>
 
-  <h1 class="text-2xl font-bold text-gray-800 mb-6">Rapports & statistiques</h1>
+  
 
   @if (isLoading()) {
     <p class="text-gray-500">Chargement...</p>

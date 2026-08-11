@@ -6,7 +6,7 @@ import { ClientService } from '../../../core/services/client.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Credit } from '../../../core/models/credit.model';
 import { Client } from '../../../core/models/client.model';
-
+import { NotificationRecordService } from '../../../core/services/notification-record.service';
 @Component({
   selector: 'app-credit-list',
   standalone: true,
@@ -17,7 +17,7 @@ export class CreditListComponent implements OnInit {
   private creditService = inject(CreditService);
   private clientService = inject(ClientService);
   private authService = inject(AuthService);
-
+  private notificationRecordService = inject(NotificationRecordService);
   credits = signal<Credit[]>([]);
   clients = signal<Client[]>([]);
   isLoading = signal(true);
@@ -63,16 +63,28 @@ canApproveCredit = this.authService.userRole() === 'gestionnaire';
     return client ? `${client.prenom} ${client.nom}` : 'Client inconnu';
   }
 
-  approuver(credit: Credit): void {
+ approuver(credit: Credit): void {
     this.creditService.update(credit.id, { statut: 'approuve' }).subscribe({
-      next: () => this.ngOnInit(),
+      next: () => {
+        this.notificationRecordService.creer(
+          credit.clientId, 'credit_approuve',
+          `Votre demande de crédit de ${credit.montant.toLocaleString('fr-FR')} XOF a été approuvée.`
+        ).subscribe();
+        this.ngOnInit();
+      },
       error: () => this.errorMessage.set("Erreur lors de l'approbation.")
     });
   }
 
   refuser(credit: Credit): void {
     this.creditService.update(credit.id, { statut: 'refuse' }).subscribe({
-      next: () => this.ngOnInit(),
+      next: () => {
+        this.notificationRecordService.creer(
+          credit.clientId, 'credit_refuse',
+          `Votre demande de crédit de ${credit.montant.toLocaleString('fr-FR')} XOF a été refusée.`
+        ).subscribe();
+        this.ngOnInit();
+      },
       error: () => this.errorMessage.set('Erreur lors du refus.')
     });
   }
