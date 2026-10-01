@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://microbank-api.onrender.com';
 const MOT_DE_PASSE_PAR_DEFAUT = 'password123';
 
 @Injectable({ providedIn: 'root' })

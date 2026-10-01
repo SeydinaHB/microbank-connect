@@ -30,7 +30,7 @@ Le projet nécessite **2 processus en parallèle**, dans 2 terminaux séparés :
 ```bash
 npm run api
 ```
-Démarre sur `http://localhost:3001`
+Démarre sur `https://microbank-api.onrender.com`
 
 **Terminal 2 — Application Angular**
 ```bash

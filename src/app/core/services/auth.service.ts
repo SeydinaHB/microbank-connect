@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { User, AuthResponse, Role } from '../models/user.model';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://microbank-api.onrender.com';
 const TOKEN_KEY = 'microbank_token';
 const USER_KEY = 'microbank_user';
 

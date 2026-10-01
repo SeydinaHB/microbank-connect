@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable , map} from 'rxjs';
 import { Transaction } from '../models/transaction.model';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://microbank-api.onrender.com';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
